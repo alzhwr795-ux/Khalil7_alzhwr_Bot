@@ -1,5 +1,4 @@
-import os
-import requests
+print("Starting bot...")
 from analysis import analyze_btc
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
