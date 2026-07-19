@@ -1,6 +1,8 @@
 import ccxt
 
-exchange = ccxt.binance()
+exchange = ccxt.binance({
+    "enableRateLimit": True
+})
 
 def analyze_btc():
     ohlcv = exchange.fetch_ohlcv("BTC/USDT", timeframe="1h", limit=20)
