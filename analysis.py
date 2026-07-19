@@ -1,7 +1,7 @@
 import requests
 
 def analyze_btc():
-    url = "https://api.binance.com/api/v3/ping"
+    url = "https://fapi.binance.com/fapi/v1/ping"
 
     response = requests.get(url, timeout=10)
 
