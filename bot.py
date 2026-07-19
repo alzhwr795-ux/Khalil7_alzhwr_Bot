@@ -5,9 +5,10 @@ from analysis import analyze_btc
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
 
-result = analyze_btc()
+try:
+    result = analyze_btc()
 
-message = f"""
+    message = f"""
 🚀 توصية تجريبية
 
 العملة: BTCUSDT
@@ -19,12 +20,18 @@ message = f"""
 EMA20: {result['ema']}
 """
 
-url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
+    url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
 
-requests.post(
-    url,
-    data={
-        "chat_id": CHAT_ID,
-        "text": message
-    }
-)
+    requests.post(
+        url,
+        data={
+            "chat_id": CHAT_ID,
+            "text": message
+        }
+    )
+
+    print("Signal sent successfully!")
+
+except Exception as e:
+    print("ERROR:", e)
+    raise
