@@ -1,18 +1,14 @@
-import ccxt
-
-exchange = ccxt.binance({
-    "enableRateLimit": True
-})
+import requests
 
 def analyze_btc():
-    ohlcv = exchange.fetch_ohlcv("BTC/USDT", timeframe="1h", limit=20)
+    url = "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT"
 
-    closes = [candle[4] for candle in ohlcv]
+    response = requests.get(url, timeout=10)
+    data = response.json()
 
-    ema20 = sum(closes) / len(closes)
-    price = closes[-1]
+    price = float(data["price"])
 
-    if price > ema20:
+    if price > 100000:
         signal = "🟢 LONG"
     else:
         signal = "🔴 SHORT"
@@ -20,5 +16,5 @@ def analyze_btc():
     return {
         "signal": signal,
         "price": price,
-        "ema": round(ema20, 2)
+        "ema": "قيد الحساب"
     }
