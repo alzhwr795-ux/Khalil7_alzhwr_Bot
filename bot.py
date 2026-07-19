@@ -1,16 +1,21 @@
 import os
 import requests
+from analysis import analyze_btc
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
 
-message = """🚀 إشارة تجريبية
+result = analyze_btc()
+
+message = f"""🚀 تحليل تجريبي
 
 العملة: BTCUSDT
-النوع: LONG
-الدخول: 100000
-الهدف: 101000
-وقف الخسارة: 99500
+
+النوع: {result['signal']}
+
+السعر الحالي: {result['price']}
+
+EMA: {result['ema']}
 """
 
 url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
